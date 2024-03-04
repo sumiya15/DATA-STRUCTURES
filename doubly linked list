@@ -1,0 +1,146 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct node
+{
+    int data;
+    struct node* prev;
+    struct node* next;
+}*n,*head,*tail;
+
+void insbeg(int num)
+{
+    n=(struct node*)malloc(sizeof(struct node));
+    n->data=num;
+    n->prev=NULL;
+    n->next=NULL;
+    if(head==NULL)
+    {
+        head=n;
+        tail=n;
+    }else
+    {
+        n->next=head;
+        n->prev=NULL;
+        head->prev=n;
+        head=n;
+    }
+}
+
+void insmid(int num, int mid)
+{
+    struct node* t;
+    n=(struct node*) malloc(sizeof(struct node));
+    n->data=num;
+    n->prev=NULL;
+    n->next=NULL;
+    for(t=head;t!=NULL;t=t->next)
+    {
+        if(t->data==mid)
+        {
+            n->next=t->next;
+            t->next->prev=n;
+            t->next=n;
+            n->prev=t;
+            break;
+        }
+    }
+}
+
+void insend(int num)
+{
+    n=(struct node*) malloc(sizeof(struct node));
+    n->data=num;
+    n->prev=NULL;
+    n->next=NULL;
+    if(head==NULL)
+    {
+        head=n;
+        tail=n;
+    } else
+    {
+        tail->next=n;
+        n->next=NULL;
+        n->prev=tail;
+        tail=n;
+    }
+}
+
+void delbeg()
+{
+    struct node *t;
+    t=head;
+    head=t->next;
+    head->prev=NULL;
+    free(t);
+}
+
+void delmid(int mid)
+{
+    struct node* t;
+    for(t=head;t!=NULL;t=t->next)
+    {
+        if(t->data==mid)
+        {
+            t->prev->next=t->next;
+            t->next->prev=t->prev;
+            free(t);
+            break;
+        }
+    }
+}
+
+void delend()
+{
+    struct node* t;
+    t=tail;
+    t->prev->next=NULL;
+    tail=t->prev;
+    free(t);
+}
+
+void display()
+{
+    struct node* t;
+    t=head;
+    while(t!=NULL)
+    {
+        printf("%d ", t->data);
+        t=t->next;
+    }
+}
+
+void search(int num)
+{
+    struct node *t;
+    for(t=head;t!=NULL;t=t->next)
+    {
+        if(t->data==num)
+        {
+            printf("Element found");
+            break;
+        }
+    }
+    if(t==NULL)
+    {
+        printf("Element not found");
+    }
+}
+
+int main()
+{ printf("shaik.sumiya 192372090\n");
+    insbeg(12);
+    insbeg(23);
+    insend(34);
+    insend(45);
+    insmid(23, 34);
+    printf("The formed list is: \n");
+    display();
+    delbeg();
+    delend();
+    delmid(34);
+    printf("\n After deleting, the list is: \n");
+    display();
+    printf("\n Searching the inputted element: \n");
+    search(55);
+}
