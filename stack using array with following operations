@@ -1,0 +1,72 @@
+#include<stdio.h>
+#include<stdlib.h>
+int n, top = -1, *stack,size=10;
+int isfull()
+{
+	if(top==size-1)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+int isempty()
+{
+	if(top==-1)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+int push(int data)
+{
+	if(!isfull())
+	{
+		top=top+1;
+		stack[top]=data;
+	}
+	return data;
+}
+int pop()
+{
+	int data;
+	if(!isempty())
+	{
+	 data=stack[top];
+	 top=top-1;
+	 return data;
+    }
+}
+int peek()
+{
+	return stack[top];
+}
+void display()
+{
+	for(int i=top;i>-1;i--) 
+	printf("%d ",stack[i]);
+	printf("\n\n");
+}
+int main()
+{
+	printf("192372090\nshaik.sumiya");
+	int n=10;
+	printf("\nInitializing the stack with size 10\n\n");
+	stack = (int*)malloc(n*sizeof(int));
+	push(14);
+	push(25);
+	push(30);
+	printf("Displaying elements of the stack -\n");
+	display();
+	printf("The top of the stack = %d\n\n",peek());
+	printf("Pop the top of the stack = %d\n\n",pop());
+	printf("Pop the top of the stack = %d\n\n",pop());
+	printf("Displaying elements of the stack -\n");
+	display();
+	return 0;
+}
